@@ -11,6 +11,9 @@ export const getAllBooks = async () => {
     endpoint: "bookcommerce",
     customRequestInit: {
       cache: "no-store",
+      next: {
+        revalidate: 3600,
+      },
     },
   });
   return allBooks;
