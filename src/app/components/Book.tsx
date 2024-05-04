@@ -57,7 +57,7 @@ const Book = ({ book, isPurchased }: BookProps) => {
   const handlePurchaseComfirm = () => {
     if (!user) {
       setIsShowModal(false);
-      router.push("/login");
+      router.push("/api/auth/signin");
     } else {
       startCheckout();
     }
