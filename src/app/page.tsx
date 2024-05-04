@@ -27,7 +27,6 @@ export default async function Home() {
           Book Commerce
         </h2>
         {contents &&
-          purchaseBookIds.length > 0 &&
           contents.map((book: BookType) => (
             <Book
               key={book.id}
