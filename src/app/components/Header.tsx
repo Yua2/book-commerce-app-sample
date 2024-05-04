@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useMemo } from "react";
+import React from "react";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "../lib/next-auth/options";
 import { User } from "../types/types";
 
 const Header = async () => {
   const session = await getServerSession(nextAuthOptions);
-  const user = useMemo(() => session?.user as User, [session]);
+  const user = session?.user as User;
 
   return (
     <header className="bg-slate-600 text-gray-100 shadow-lg">

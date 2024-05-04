@@ -4,11 +4,10 @@ import { nextAuthOptions } from "../lib/next-auth/options";
 import { BookType, Purchase, User } from "../types/types";
 import { getDetailBook } from "../lib/microcms/client";
 import PurchaseDetailBook from "../components/PurchaseDetailBook";
-import { useMemo } from "react";
 
 const ProfilePage = async () => {
   const session = await getServerSession(nextAuthOptions);
-  const user = useMemo(() => session?.user as User, [session]);
+  const user = session?.user as User;
 
   let purchasesDetailBooks: BookType[] = [];
   if (user) {

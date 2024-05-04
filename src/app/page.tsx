@@ -3,12 +3,11 @@ import Book from "./components/Book";
 import { getAllBooks } from "./lib/microcms/client";
 import { BookType, Purchase, User } from "./types/types";
 import { nextAuthOptions } from "./lib/next-auth/options";
-import { useMemo } from "react";
 
 export default async function Home() {
   const { contents } = await getAllBooks();
   const session = await getServerSession(nextAuthOptions);
-  const user: User = useMemo(() => session?.user as User, [session]);
+  const user: User = session?.user as User;
 
   let purchaseBookIds: string[] = [];
   if (user) {
