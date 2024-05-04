@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { BookType } from "../types/types";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -14,21 +14,22 @@ type BookProps = {
 const Book = ({ book, isPurchased }: BookProps) => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const { data: session } = useSession();
-  const user: any = session?.user;
+  const user: any = useMemo(() => session?.user, [session]);
   const router = useRouter();
 
-  const handleCancel = () => {
+  const handleCancel = useCallback(() => {
     setIsShowModal(false);
-  };
+  }, []);
 
-  const handlePurchaseClick = () => {
+  const handlePurchaseClick = useCallback(() => {
     if (isPurchased) {
       alert("購入済みです。");
       return;
     }
     setIsShowModal(true);
-  };
+  }, [isPurchased]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const startCheckout = async () => {
     try {
       const response = await fetch(
@@ -54,14 +55,14 @@ const Book = ({ book, isPurchased }: BookProps) => {
     }
   };
 
-  const handlePurchaseComfirm = () => {
+  const handlePurchaseComfirm = useCallback(() => {
     if (!user) {
       setIsShowModal(false);
       router.push("/api/auth/signin");
     } else {
       startCheckout();
     }
-  };
+  }, [router, startCheckout, user]);
 
   return (
     <>

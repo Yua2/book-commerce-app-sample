@@ -1,13 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const PurchaseSuccess = () => {
   const [bookUrl, setBookUrl] = useState<string | null>(null);
   const searchParams = useSearchParams();
-  const sessionId = searchParams.get("session_id");
+  const sessionId = useMemo(
+    () => searchParams.get("session_id"),
+    [searchParams]
+  );
 
   useEffect(() => {
     const fetchData = async () => {
