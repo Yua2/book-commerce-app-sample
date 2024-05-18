@@ -6,7 +6,7 @@ export const client = createClient({
   apiKey: process.env.NEXT_PUBLIC_API_KEY!,
 });
 
-export const getAllBooks = async (): Promise<BookType[]> => {
+export const getAllBooks = async () => {
   const allBooks = await client.getList<BookType>({
     endpoint: "bookcommerce",
     customRequestInit: {
@@ -16,10 +16,10 @@ export const getAllBooks = async (): Promise<BookType[]> => {
       },
     },
   });
-  return allBooks.contents;
+  return allBooks;
 };
 
-export const getDetailBook = async (contentId: string): Promise<BookType> => {
+export const getDetailBook = async (contentId: string) => {
   const detailBook = await client.getListDetail<BookType>({
     endpoint: "bookcommerce",
     contentId,
